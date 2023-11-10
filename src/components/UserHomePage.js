@@ -69,6 +69,7 @@ export default function HomePage({ userName, onLogout }) {
                 }
             }
             const response = await axios.get('http://localhost:5000/v1/auth/get-user-from-token', config);
+            console.log("reposne = ", response.data);
             if (response.data.error === false) {
                 setUserId(response.data.data.user.userId);
             }

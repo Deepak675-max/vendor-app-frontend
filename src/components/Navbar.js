@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Notification from './Notification'
 export default function Navbar(props) {
+      const [notices, setNotices] = useState('');
+
+      const getNotifications = async () => {
+            try {
+                  const token = localStorage.getItem('token');
+                  const config = {
+                        headers: {
+                              'Content-Type': 'application/json',
+                              'Authorization': `Bearer ${token}`
+                        }
+                  }
+                  const
+                  const response = await axios.get('http://localhost:6000/v1/user/get-Notifications', config);
+            } catch (error) {
+                  console.log(error);
+            }
+      }
+
       return (
             <nav className={`navbar navbar-expand-lg`}>
                   <div className="container-fluid">

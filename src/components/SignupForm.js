@@ -207,7 +207,7 @@ function SignupForm() {
     const signupUser = async (formData) => {
         // In a real app, you would perform authentication here.
         // For simplicity, we just check if the username is not empty.
-        const response = await axios.post('http://localhost:3500/v1/user/create-user', formData);
+        const response = await axios.post('http://localhost:5000/v1/user/create-user', formData);
         if (response.data.error === false) {
             Navigate('/login');
         }

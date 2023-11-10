@@ -91,12 +91,14 @@
 
 
 // App.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Navigate, Routes } from 'react-router-dom';
 import LoginForm from './components/UserLoginForm';
 import SignupForm from './components/SignupForm';
 import HomePage from './components/UserHomePage';
 import OrderPage from './components/OrderPage';
+import axios from 'axios';
+
 
 function App() {
 
@@ -114,6 +116,30 @@ function App() {
     setAuthenticated(false);
     localStorage.setItem('token', null);
   };
+
+  const loginUser = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      }
+      const response = await axios.post('http://localhost:5000/v1/auth/login-user', config);
+      console.log(response.data.data);
+      setUser(response.data.data.user);
+      localStorage.setItem('token', response.data.data.token);
+      setAuthenticated(true);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    loginUser();
+  }, []);
+
   return (
     <>
       <Router>
